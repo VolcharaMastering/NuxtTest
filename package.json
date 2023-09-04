@@ -1,0 +1,23 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint:prettier": "prettier --check .",
+    "lint": "npm run lint:prettier",
+    "lintfix": "prettier --write .",
+    "test": "jest",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "husky": "^8.0.3",
+    "jest": "^29.6.4",
+    "nuxt": "^3.7.0",
+    "prettier": "^3.0.3"
+  }
+}
