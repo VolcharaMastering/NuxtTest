@@ -6,11 +6,25 @@
     <AppButton />
     <AppButton />
     <AppButton />
-    <AppButton />
+    <AppButton @click="toggleModal" />
   </nav>
+  <Modal v-if="showModal" @modalClose="toggleModal" />
 </template>
 
-<script setup></script>
+<script>
+export default {
+  data() {
+    return {
+      showModal: false,
+    };
+  },
+  methods: {
+    toggleModal() {
+      this.showModal = !this.showModal;
+    },
+  },
+};
+</script>
 
 <style scoped>
 .header-nav {
