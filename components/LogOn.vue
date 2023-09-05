@@ -11,6 +11,7 @@
     Confirm password
     <input class="input" type="password" />
   </label>
+  <FuncButton buttonLabel="Register" />
 </template>
 
 <script>

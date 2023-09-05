@@ -7,6 +7,7 @@
     Password
     <input class="input" type="password" />
   </label>
+  <FuncButton buttonLabel="Enter" />
 </template>
 
 <script>

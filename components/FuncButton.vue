@@ -1,13 +1,14 @@
 <template>
-  <button type="submit" class="func-button">{{ text }}</button>
+  <button type="submit" class="func-button">{{ buttonLabel }}</button>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      text: "returnLabel",
-    };
+  props: {
+    buttonLabel: {
+      type: String,
+      default: "",
+    },
   },
 };
 </script>

@@ -2,10 +2,9 @@
   <article class="modal-wrap">
     <div class="modal-container" v-click-away="handleClickaway">
       <span class="icon-close" @click="$emit('modalClose')" />
-      <h1>Log In</h1>
+      <h1>{{ modalName }}</h1>
       <form>
-        <LogIn />
-        <FuncButton />
+        <component :is="modalName === 'LogIn' ? 'LogIn' : 'LogOn'"></component>
       </form>
     </div>
   </article>
@@ -13,13 +12,25 @@
 
 <script>
 import { mixin as VueClickAway } from "vue3-click-away";
+import LogIn from "./LogIn.vue";
+import LogOn from "./LogOn.vue";
 export default {
+  props: {
+    modalName: {
+      type: String,
+      default: "",
+    },
+  },
   mixins: [VueClickAway],
 
   methods: {
     handleClickaway() {
       this.$emit("modalClose", this.email);
     },
+  },
+  components: {
+    LogIn,
+    LogOn,
   },
 };
 </script>
