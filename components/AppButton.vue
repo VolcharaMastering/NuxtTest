@@ -1,9 +1,15 @@
 <template>
-  <button class="button">{{ text }}</button>
+  <button class="button">{{ buttonLabel }}</button>
 </template>
 
 <script>
 export default {
+  props: {
+    buttonLabel: {
+      type: String,
+      default: "",
+    },
+  },
   data() {
     return {
       text: "tempButton",
@@ -14,7 +20,7 @@ export default {
 
 <style scoped>
 .button {
-  width: 100px;
+  width: 140px;
   padding: 10px 15px;
   background: white;
   color: black;

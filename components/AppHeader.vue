@@ -3,24 +3,44 @@
     <nuxt-link to="/"
       ><img src="../assets/images/logo.png" alt="logo picture"
     /></nuxt-link>
-    <AppButton />
-    <AppButton />
-    <AppButton />
-    <AppButton @click="toggleModal" />
+    <AppButton buttonLabel="Get all users" />
+    <AppButton v-if="autheristed" buttonLabel="Update user" />
+    <AppButton v-if="autheristed" buttonLabel="Delete user" />
+    <AppButton
+      v-if="!autheristed"
+      @click="openModal('Register')"
+      buttonLabel="Register"
+    />
+    <AppButton
+      v-if="!autheristed"
+      @click="openModal('LogIn')"
+      buttonLabel="Enter"
+    />
+    <AppButton
+      v-if="autheristed"
+      @click="openModal('LogIn')"
+      buttonLabel="Exit"
+    />
   </nav>
-  <Modal v-if="showModal" @modalClose="toggleModal" />
+  <Modal v-if="showModal" @modalClose="closeModal" :modalName="modalFlag" />
 </template>
 
 <script>
 export default {
   data() {
     return {
+      autheristed: false,
       showModal: false,
+      modalFlag: "",
     };
   },
   methods: {
-    toggleModal() {
-      this.showModal = !this.showModal;
+    openModal(flag) {
+      this.modalFlag = flag;
+      this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
     },
   },
 };
