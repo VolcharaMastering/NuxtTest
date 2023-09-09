@@ -3,7 +3,7 @@
     <nuxt-link to="/"
       ><img src="../assets/images/logo.png" alt="logo picture"
     /></nuxt-link>
-    <AppButton buttonLabel="Get all users" @click="getUsers" />
+    <AppButton buttonLabel="Get all users" @click="handleGetUsers" />
     <AppButton v-if="autheristed" buttonLabel="Update user" />
     <AppButton v-if="autheristed" buttonLabel="Delete user" />
     <AppButton
@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import axios from "~/axios";
+const myStore = useMyStore();
+// const { users } = storeToRefs(myStore);
 export default {
   data() {
     return {
@@ -43,15 +44,9 @@ export default {
     closeModal() {
       this.showModal = false;
     },
-    async getUsers() {
-      console.log("entered");
-      try {
-        const response = await axios.get("/users");
-        console.log("response", response);
-        return response;
-      } catch (error) {
-        return Promise.reject(`Bug detected! ${error}`);
-      }
+
+    handleGetUsers() {
+      myStore.getUsers();
     },
   },
 };

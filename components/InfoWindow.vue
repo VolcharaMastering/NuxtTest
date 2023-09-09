@@ -1,16 +1,37 @@
 <template>
   <div class="window-block">
-    <h2 class="info-title">{{ text }}</h2>
-    <div class="info-window"></div>
+    <h2 class="info-title">{{ label }}</h2>
+    <div class="info-window">
+      <div
+        v-if="label === 'Result'"
+        class="info-element"
+        v-for="item in response"
+      >
+        <h3 v-if="item.name">Card of {{ item.name }}</h3>
+        <p v-if="item.email">User Email: {{ item.email }}</p>
+        <p v-if="item.name">User Name: {{ item.name }}</p>
+        <p v-if="item._id">User ID is {{ item._id }}</p>
+      </div>
+      <div v-else class="info-element" v-for="item in response">
+        <p>User {{ item }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      text: "Enter",
-    };
+  props: {
+    response: {
+      type: Array,
+      default: function () {
+        return [];
+      },
+    },
+    label: {
+      type: String,
+      default: "",
+    },
   },
 };
 </script>
