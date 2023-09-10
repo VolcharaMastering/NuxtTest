@@ -22,15 +22,14 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
-  background: white;
+  background: rgba(226, 223, 223, 0.7);
   color: black;
+  border: 3px solid rgba(199, 192, 192, 0.4);
   transition: 0.3s;
   cursor: pointer;
 }
 .func-button:hover {
-  color: white;
-  background: black;
+  background: rgb(143, 138, 138);
   transition: 0.3s;
 }
 </style>

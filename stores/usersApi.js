@@ -10,13 +10,13 @@ export const useMyStore = defineStore("userStore", {
     usersData: [],
   }),
   actions: {
-    async signin({ commit }, { email, password }) {
+    async signin(email, password) {
       try {
         const response = await $axios.post("/signin", {
           email,
           password,
         });
-        const { token, user } = response.data;
+        const { token, user, email } = response.data;
         commit("setToken", token);
         commit("setUser", user);
       } catch (error) {
@@ -25,25 +25,25 @@ export const useMyStore = defineStore("userStore", {
         );
       }
     },
-    async signup({ commit }, { email, password, login }) {
+    async signup(name, email, password) {
+      console.log("SIGNUP", name, email, password);
       try {
-        const response = await $axios.post("/api/users", {
+        const response = await $axios.post("/signup", {
           email,
           password,
-          login,
+          name,
         });
+        this.user = response.data;
       } catch (error) {
-        return Promise.reject(
-          `Bug detected! ${error.response.status}: ${error.response.statusText}`,
-        );
+        return `Bug detected! ${error}`;
       }
     },
     async getUsers() {
       try {
         const response = await $axios.get("/users");
-        this.usersData.push(response.data);
+        this.usersData = response.data;
       } catch (error) {
-        return Promise.reject(`Bug detected! ${error}`);
+        return `Bug detected! ${error}`;
       }
     },
     checkToken() {

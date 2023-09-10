@@ -15,27 +15,14 @@
       src="../assets/images/fon_center.png"
       alt="background image"
     />
-    <InfoWindow label="Result" :response="usersData[0]" />
-    <InfoWindow label="Full Api unswer" :response="usersData[0]" />
+    <InfoWindow label="Result" :response="usersData" />
+    <InfoWindow label="Full Api unswer" :response="usersData" />
   </section>
 </template>
 
 <script setup>
 const myStore = useMyStore();
 const { token, user, usersData } = storeToRefs(myStore);
-// console.log( usersData);
-// const filteredData = [];
-// usersData.map(item => {
-//   console.log(el)
-// });;
-
-// export default {
-//   data() {
-//     return {
-//       text: "Enter",
-//     };
-//   },
-// };
 </script>
 
 <style scoped>

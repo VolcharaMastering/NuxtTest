@@ -27,7 +27,6 @@
 
 <script>
 const myStore = useMyStore();
-// const { users } = storeToRefs(myStore);
 export default {
   data() {
     return {
@@ -44,7 +43,6 @@ export default {
     closeModal() {
       this.showModal = false;
     },
-
     handleGetUsers() {
       myStore.getUsers();
     },

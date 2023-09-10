@@ -11,6 +11,7 @@
         <p v-if="item.email">User Email: {{ item.email }}</p>
         <p v-if="item.name">User Name: {{ item.name }}</p>
         <p v-if="item._id">User ID is {{ item._id }}</p>
+        <p v-if="item.token">User ID is {{ item.token }}</p>
       </div>
       <div v-else class="info-element" v-for="item in response">
         <p>User {{ item }}</p>
@@ -53,6 +54,7 @@ export default {
   box-sizing: border-box;
   overflow-y: auto;
   margin: 0;
+  padding: 10px;
 }
 .info-title {
   font-size: 15px;
