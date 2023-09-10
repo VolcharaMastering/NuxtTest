@@ -10,19 +10,17 @@ export const useMyStore = defineStore("userStore", {
     usersData: [],
   }),
   actions: {
-    async signin(email, password) {
+    async signIn(email, password) {
       try {
         const response = await $axios.post("/signin", {
           email,
           password,
         });
-        const { token, user, email } = response.data;
-        commit("setToken", token);
-        commit("setUser", user);
+        const { data, token } = response.data;
+        this.user = data;
+        this.token = token;
       } catch (error) {
-        return Promise.reject(
-          `Bug detected! ${error.response.status}: ${error.response.statusText}`,
-        );
+        return `Bug detected! ${error}`;
       }
     },
     async signup(name, email, password) {

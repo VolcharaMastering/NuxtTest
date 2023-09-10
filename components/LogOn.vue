@@ -26,17 +26,7 @@ const email = ref(null);
 const password = ref(null);
 
 const handleLogOn = () => {
-  // errors.value = null
-  // const inputData = {
-  //   userName: userName.value,
-  //   email: email.value,
-  //   password: password.value,
-  // };
   myStore.signup(userName.value, email.value, password.value);
-  // console.log(userName.value, email.value, password.value);
-  // } catch (error) {
-  //   console.log(error);
-  // }
 };
 </script>
 

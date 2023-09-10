@@ -1,17 +1,23 @@
 <template>
   <label class="label">
     Email
-    <input class="input" type="email" />
+    <input class="input" type="email" v-model="email" />
   </label>
   <label class="label">
     Password
-    <input class="input" type="password" />
+    <input class="input" type="password" v-model="password" />
   </label>
-  <FuncButton buttonLabel="Enter" />
+  <FuncButton buttonLabel="Enter" @click.prevent="handleLogIn" />
 </template>
 
-<script>
-export default {};
+<script setup>
+const myStore = useMyStore();
+const email = ref(null);
+const password = ref(null);
+
+const handleLogIn = () => {
+  myStore.signIn(email.value, password.value);
+};
 </script>
 
 <style scoped>
