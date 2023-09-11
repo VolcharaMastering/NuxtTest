@@ -8,6 +8,7 @@ export const useMyStore = defineStore("userStore", {
     token: null,
     user: null,
     usersData: [],
+    serverAnswer: null,
   }),
   actions: {
     async signIn(email, password) {
@@ -19,6 +20,8 @@ export const useMyStore = defineStore("userStore", {
         const { data, token } = response.data;
         this.user = data;
         this.token = token;
+        setToken(token);
+        this.serverAnswer = response.data;
       } catch (error) {
         return `Bug detected! ${error}`;
       }
@@ -32,6 +35,7 @@ export const useMyStore = defineStore("userStore", {
           name,
         });
         this.user = response.data;
+        this.serverAnswer = response.data;
       } catch (error) {
         return `Bug detected! ${error}`;
       }
@@ -40,6 +44,7 @@ export const useMyStore = defineStore("userStore", {
       try {
         const response = await $axios.get("/users");
         this.usersData = response.data;
+        this.serverAnswer = response.data;
       } catch (error) {
         return `Bug detected! ${error}`;
       }
@@ -50,6 +55,7 @@ export const useMyStore = defineStore("userStore", {
     },
     logout() {
       store.$reset();
+      removeToken();
     },
   },
 });

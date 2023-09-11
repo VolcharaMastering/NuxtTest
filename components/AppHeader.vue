@@ -18,7 +18,7 @@
     />
     <AppButton
       v-if="autheristed"
-      @click="openModal('LogIn')"
+      @click="openModal('Exit')"
       buttonLabel="Exit"
     />
   </nav>

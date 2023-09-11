@@ -15,15 +15,12 @@
       src="../assets/images/fon_center.png"
       alt="background image"
     />
-    <InfoWindow label="Result" :response="usersData" />
-    <InfoWindow label="Full Api unswer" :response="usersData" />
+    <InfoWindow label="Result" />
+    <InfoWindow label="Full Api unswer" />
   </section>
 </template>
 
-<script setup>
-const myStore = useMyStore();
-const { token, user, usersData } = storeToRefs(myStore);
-</script>
+<script setup></script>
 
 <style scoped>
 .main {

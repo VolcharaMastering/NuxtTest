@@ -7,11 +7,21 @@
         class="info-element"
         v-for="item in response"
       >
-        <h3 v-if="item.name">Card of {{ item.name }}</h3>
-        <p v-if="item.email">User Email: {{ item.email }}</p>
-        <p v-if="item.name">User Name: {{ item.name }}</p>
-        <p v-if="item._id">User ID is {{ item._id }}</p>
-        <p v-if="item.token">User ID is {{ item.token }}</p>
+        <h3 v-if="item.name">
+          Card of <em>{{ item.name }}</em>
+        </h3>
+        <p v-if="item.email">
+          User Email: <em>{{ item.email }}</em>
+        </p>
+        <p v-if="item.name">
+          User Name: <em>{{ item.name }}</em>
+        </p>
+        <p v-if="item._id">
+          User ID is <em>{{ item._id }}</em>
+        </p>
+        <p v-if="item.token">
+          User token is <em>{{ item.token }}</em>
+        </p>
       </div>
       <div v-else class="info-element" v-for="item in response">
         <p>User {{ item }}</p>
@@ -20,21 +30,21 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    response: {
-      type: Array,
-      default: function () {
-        return [];
-      },
-    },
-    label: {
-      type: String,
-      default: "",
-    },
-  },
-};
+<script setup>
+const myStore = useMyStore();
+const buttonStore = useButtonStore();
+const { user, usersData, token, serverAnswer } = storeToRefs(myStore);
+const { buttonPressed } = storeToRefs(buttonStore);
+const response = serverAnswer;
+const props = defineProps({
+  label: String,
+});
+// if (buttonPressed !== 'Get all users'){
+//       printData = usersData;
+// }
+// else{
+//   printData = user;
+// }
 </script>
 
 <style scoped>
