@@ -1,17 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   // devtools: { enabled: false },
-  // components: true,
-
+  buildModules: ["@nuxt/components"],
+  components: true,
   css: ["@/assets/normalize.css"],
 
-  // webpack: {
-  //   loaders: {
-  //     vue: {
-  //       hotReload: true,
-  //     },
-  //   },
-  // },
+  // plugins: [
+  //   './plugins/vue3-click-away.js',
+  // ],
   devServer: {
     port: 3052,
   },
@@ -23,5 +19,10 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["./stores"],
   },
+
   ssr: true,
+
+  router: {
+    middleware: ["authorized", "not-authorized"],
+  },
 });

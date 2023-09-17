@@ -21,12 +21,22 @@
 
 <script setup>
 const myStore = useMyStore();
+const modalStore = useModalStore();
 const userName = ref(null);
 const email = ref(null);
 const password = ref(null);
 
-const handleLogOn = () => {
-  myStore.signup(userName.value, email.value, password.value);
+const handleLogOn = async () => {
+  try {
+    await myStore.signup(userName.value, email.value, password.value);
+    const { user } = storeToRefs(myStore);
+    console.log(user);
+    if (user) {
+      modalStore.setModalClosed();
+    }
+  } catch {
+    console.log("error");
+  }
 };
 </script>
 

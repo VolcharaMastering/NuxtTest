@@ -1,17 +1,20 @@
 <template>
-  <div class="start-page">
-    <h1>Welcome!</h1>
-    <p>Register or SignIn</p>
+  <div class="profile-page">
+    <h1>Welcome! {{ user.name }}</h1>
+    <p>Check the action</p>
   </div>
 </template>
 
 <script setup>
+const myStore = useMyStore();
+const user = computed(() => myStore.user);
 definePageMeta({
-  middleware: "authorized",
+  middleware: "not-authorized",
 });
 </script>
+
 <style scoped>
-.start-page {
+.profile-page {
   margin-top: 80px;
   width: 100%;
   display: flex;

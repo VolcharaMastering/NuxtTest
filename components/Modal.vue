@@ -1,37 +1,23 @@
 <template>
   <article class="modal-wrap">
-    <div class="modal-container" v-click-away="handleClickaway">
-      <span class="icon-close" @click="$emit('modalClose')" />
-      <h1>{{ modalName }}</h1>
+    <div class="modal-container">
+      <span class="icon-close" @click="modalStore.setModalClosed" />
+      <h1>{{ modalType }}</h1>
       <form>
-        <component :is="modalName === 'LogIn' ? 'LogIn' : 'LogOn'"></component>
+        <!-- <component :is="modalType">{{ modalType }}</component> -->
+        <LogIn v-if="modalType === 'LogIn'" />
+        <Register v-if="modalType === 'Register'" />
       </form>
     </div>
   </article>
 </template>
 
-<script>
-import { mixin as VueClickAway } from "vue3-click-away";
-import LogIn from "./LogIn.vue";
-import LogOn from "./LogOn.vue";
-export default {
-  props: {
-    modalName: {
-      type: String,
-      default: "",
-    },
-  },
-  mixins: [VueClickAway],
+<script setup>
+const modalStore = useModalStore();
 
-  methods: {
-    handleClickaway() {
-      this.$emit("modalClose", this.email);
-    },
-  },
-  components: {
-    LogIn,
-    LogOn,
-  },
+const { modalType } = await storeToRefs(modalStore);
+const handleClickaway = () => {
+  modalStore.setModalClosed();
 };
 </script>
 

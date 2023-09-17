@@ -19,32 +19,22 @@
         <p v-if="item._id">
           User ID is <em>{{ item._id }}</em>
         </p>
-        <p v-if="item.token">
-          User token is <em>{{ item.token }}</em>
-        </p>
       </div>
       <div v-else class="info-element" v-for="item in response">
-        <p>User {{ item }}</p>
+        <p>Data: {{ item }}</p>
       </div>
+      <!-- <p v-if="response.token">User token is <em>{{ response.token }}</em></p> -->
     </div>
   </div>
 </template>
 
 <script setup>
 const myStore = useMyStore();
-const buttonStore = useButtonStore();
-const { user, usersData, token, serverAnswer } = storeToRefs(myStore);
-const { buttonPressed } = storeToRefs(buttonStore);
+const { serverAnswer } = storeToRefs(myStore);
 const response = serverAnswer;
 const props = defineProps({
   label: String,
 });
-// if (buttonPressed !== 'Get all users'){
-//       printData = usersData;
-// }
-// else{
-//   printData = user;
-// }
 </script>
 
 <style scoped>

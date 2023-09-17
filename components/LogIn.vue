@@ -11,12 +11,23 @@
 </template>
 
 <script setup>
+const modalStore = useModalStore();
 const myStore = useMyStore();
+
 const email = ref(null);
 const password = ref(null);
 
-const handleLogIn = () => {
-  myStore.signIn(email.value, password.value);
+const handleLogIn = async () => {
+  try {
+    await myStore.signIn(email.value, password.value);
+    const user = computed(() => myStore.user);
+    if (user) {
+      modalStore.setModalClosed();
+      await navigateTo("/profile", { replace: true });
+    }
+  } catch {
+    console.log("error");
+  }
 };
 </script>
 

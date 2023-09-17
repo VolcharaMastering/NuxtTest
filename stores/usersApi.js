@@ -5,8 +5,8 @@ const $axios = axios().provide.axios;
 
 export const useMyStore = defineStore("userStore", {
   state: () => ({
-    token: null,
-    user: null,
+    token: getToken() || "",
+    user: "",
     usersData: [],
     serverAnswer: null,
   }),
@@ -19,6 +19,7 @@ export const useMyStore = defineStore("userStore", {
         });
         const { data, token } = response.data;
         this.user = data;
+        localStorage.setItem("userData", JSON.stringify(data));
         this.token = token;
         setToken(token);
         this.serverAnswer = response.data;
@@ -36,6 +37,7 @@ export const useMyStore = defineStore("userStore", {
         });
         this.user = response.data;
         this.serverAnswer = response.data;
+        return "Ok";
       } catch (error) {
         return `Bug detected! ${error}`;
       }
@@ -49,12 +51,20 @@ export const useMyStore = defineStore("userStore", {
         return `Bug detected! ${error}`;
       }
     },
-    checkToken() {
-      backToken = getToken();
-      return backToken === state.token;
+    async checkUser() {
+      const storedToken = this.token;
+
+      // Проверьте, есть ли токен в cookie и если нет, установите его
+      const cookieToken = getToken();
+      if (!storedToken && cookieToken) {
+        this.token = cookieToken;
+      }
+
+      if (cookieToken === storedToken) {
+        this.user = JSON.parse(localStorage.getItem("userData"));
+      }
     },
     logout() {
-      store.$reset();
       removeToken();
     },
   },
