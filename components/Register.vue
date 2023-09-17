@@ -4,26 +4,35 @@
     <input class="input" type="email" v-model="email" />
   </label>
   <label class="label">
+    User name
+    <input class="input" type="text" v-model="userName" />
+    <p>{{ userName }}</p>
+  </label>
+  <label class="label">
     Password
     <input class="input" type="password" v-model="password" />
   </label>
-  <FuncButton buttonLabel="Enter" @click.prevent="handleLogIn" />
+  <label class="label">
+    Confirm password
+    <input class="input" type="password" />
+  </label>
+  <FuncButton buttonLabel="Register" @click.prevent="handleLogOn" />
 </template>
 
 <script setup>
-const modalStore = useModalStore();
 const myStore = useMyStore();
-
+const modalStore = useModalStore();
+const userName = ref(null);
 const email = ref(null);
 const password = ref(null);
 
-const handleLogIn = async () => {
+const handleLogOn = async () => {
   try {
-    await myStore.signIn(email.value, password.value);
-    const user = computed(() => myStore.user);
+    await myStore.signup(userName.value, email.value, password.value);
+    const { user } = storeToRefs(myStore);
+    console.log(user);
     if (user) {
       modalStore.setModalClosed();
-      await navigateTo("/profile", { replace: true });
     }
   } catch {
     console.log("error");

@@ -3,9 +3,17 @@
     <nuxt-link to="/"
       ><img src="../assets/images/logo.png" alt="logo picture"
     /></nuxt-link>
-    <AppButton buttonLabel="Get all users" />
-    <AppButton v-if="autheristed" buttonLabel="Update user" />
-    <AppButton v-if="autheristed" buttonLabel="Delete user" />
+    <AppButton buttonLabel="Get all users" @click="handleGetUsers" />
+    <AppButton
+      v-if="autheristed"
+      buttonLabel="Update user"
+      @click="openModal('Update User')"
+    />
+    <AppButton
+      v-if="autheristed"
+      buttonLabel="Delete user"
+      @click="openModal('Delete User')"
+    />
     <AppButton
       v-if="!autheristed"
       @click="openModal('Register')"
@@ -16,33 +24,28 @@
       @click="openModal('LogIn')"
       buttonLabel="Enter"
     />
-    <AppButton
-      v-if="autheristed"
-      @click="openModal('LogIn')"
-      buttonLabel="Exit"
-    />
+    <AppButton v-if="autheristed" @click="handleLogout" buttonLabel="Exit" />
   </nav>
-  <Modal v-if="showModal" @modalClose="closeModal" :modalName="modalFlag" />
+  <Modal v-if="modalState" />
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      autheristed: false,
-      showModal: false,
-      modalFlag: "",
-    };
-  },
-  methods: {
-    openModal(flag) {
-      this.modalFlag = flag;
-      this.showModal = true;
-    },
-    closeModal() {
-      this.showModal = false;
-    },
-  },
+<script setup>
+const myStore = useMyStore();
+const modalStore = useModalStore();
+const { modalState } = storeToRefs(modalStore);
+const autheristed = computed(() => myStore.user);
+console.log("AUTH", autheristed);
+
+const openModal = (modalType) => {
+  modalStore.setModalOpened(modalType);
+};
+const handleLogout = async () => {
+  myStore.logout();
+  myStore.$reset();
+  await navigateTo("/", { replace: true });
+};
+const handleGetUsers = () => {
+  myStore.getUsers();
 };
 </script>
 
