@@ -6,9 +6,12 @@
 </template>
 
 <script setup>
-definePageMeta({
-  middleware: "authorized",
-});
+// const myStore = useMyStore();
+
+// myStore.checkUser();
+// definePageMeta({
+//   middleware: ["authorized"]
+// });
 </script>
 <style scoped>
 .start-page {

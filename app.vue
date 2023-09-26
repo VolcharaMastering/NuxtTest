@@ -8,8 +8,6 @@
 </template>
 <script setup>
 import auth from "./plugins/auth";
-
-const myStore = useMyStore();
 onMounted(async () => {
   await auth();
 });

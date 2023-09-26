@@ -1,6 +1,6 @@
-import { defineStore } from "pinia";
+// import { defineStore } from "pinia";
 import axios from "~/plugins/axios";
-import { getToken, setToken, removeToken } from "~/auth";
+import { getToken, setToken, removeToken } from "~/cookieToken";
 const $axios = axios().provide.axios;
 
 export const useMyStore = defineStore("userStore", {
@@ -9,6 +9,7 @@ export const useMyStore = defineStore("userStore", {
     user: "",
     usersData: [],
     serverAnswer: null,
+    auth: false,
   }),
   actions: {
     async signIn(email, password) {
@@ -23,6 +24,7 @@ export const useMyStore = defineStore("userStore", {
         this.token = token;
         setToken(token);
         this.serverAnswer = response.data;
+        this.auth = true;
       } catch (error) {
         return `Bug detected! ${error}`;
       }
@@ -53,19 +55,19 @@ export const useMyStore = defineStore("userStore", {
     },
     async checkUser() {
       const storedToken = this.token;
-
-      // Проверьте, есть ли токен в cookie и если нет, установите его
       const cookieToken = getToken();
       if (!storedToken && cookieToken) {
         this.token = cookieToken;
       }
 
       if (cookieToken === storedToken) {
-        this.user = JSON.parse(localStorage.getItem("userData"));
+        this.user = await JSON.parse(localStorage.getItem("userData"));
+        this.auth = true;
       }
     },
     logout() {
       removeToken();
+      this.auth = false;
     },
   },
 });

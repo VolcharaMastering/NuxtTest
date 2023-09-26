@@ -8,9 +8,9 @@
 <script setup>
 const myStore = useMyStore();
 const user = computed(() => myStore.user);
-definePageMeta({
-  middleware: "not-authorized",
-});
+// definePageMeta({
+//   middleware: ["authorized"]
+// });
 </script>
 
 <style scoped>

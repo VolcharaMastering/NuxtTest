@@ -1,7 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   // devtools: { enabled: false },
-  buildModules: ["@nuxt/components"],
+  modules: ["@pinia/nuxt"],
+  pinia: {
+    autoImports: ["defineStore", "storeToRefs"],
+  },
+  imports: {
+    dirs: ["./stores"],
+  },
+  target: "server",
+
+  buildModules: ["@nuxt/components", "@pinia/nuxt"],
   components: true,
   css: ["@/assets/normalize.css"],
 
@@ -12,17 +21,10 @@ export default defineNuxtConfig({
     port: 3052,
   },
   devtools: { enabled: false },
-  modules: ["@pinia/nuxt"],
-  pinia: {
-    autoImports: ["defineStore", "storeToRefs"],
-  },
-  imports: {
-    dirs: ["./stores"],
-  },
 
   ssr: true,
 
-  router: {
-    middleware: ["authorized", "not-authorized"],
-  },
+  // router: {
+  //   middleware: ["authorized", "user-check"],
+  // },
 });

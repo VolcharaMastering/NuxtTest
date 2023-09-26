@@ -33,8 +33,8 @@
 const myStore = useMyStore();
 const modalStore = useModalStore();
 const { modalState } = storeToRefs(modalStore);
-const autheristed = computed(() => myStore.user);
-console.log("AUTH", autheristed);
+const autheristed = computed(() => myStore.auth);
+// console.log("AUTH", autheristed);
 
 const openModal = (modalType) => {
   modalStore.setModalOpened(modalType);
